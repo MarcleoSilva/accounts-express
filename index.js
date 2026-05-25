@@ -36,6 +36,8 @@ function operation() {
             deposit()
         } else if(answer === "Sacar") {
             withdraw()
+        } else if(answer === "Sair") {
+            console.log(chalk.bgBlue.white('\n Obrigado por usar nosso banco! Até a próxima! '))
         }
     }).catch((err) => console.log(err))
 }
