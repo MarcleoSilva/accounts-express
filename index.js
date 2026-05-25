@@ -34,8 +34,44 @@ function operation() {
             checkBalance()
         } else if(answer === "Depositar") {
             deposit()
+        } else if(answer === "Sacar") {
+            withdraw()
         }
     }).catch((err) => console.log(err))
+}
+
+async function withdraw() {
+    const accounts = loadAccounts()
+
+    if (accounts.length === 0) {
+        console.log(chalk.red('\nNenhuma conta cadastrada.'))
+        return
+    }
+
+    const email = await input({ message: 'Email da conta:' })
+    const account = accounts.find((acc) => acc.email === email)
+
+    if (!account) {
+        console.log(chalk.red(`\nConta com email "${email}" não encontrada.`))
+        return
+    }
+
+    const amount = await number({ message: 'Valor a sacar (R$):' })
+
+    if (amount <= 0) {
+        console.log(chalk.red('\nO valor do saque deve ser maior que zero.'))
+        return
+    }
+
+    if (amount > account.balance) {
+        console.log(chalk.red(`\nSaldo insuficiente. Saldo disponível: R$ ${account.balance.toFixed(2)}`))
+        return
+    }
+
+    account.balance -= amount
+    saveAccounts(accounts)
+    console.log(chalk.green(`\nSaque de R$ ${amount.toFixed(2)} realizado com sucesso!`))
+    console.log(chalk.green('Novo saldo: ') + chalk.bgGreen.black(` R$ ${account.balance.toFixed(2)} `))
 }
 
 async function deposit() {

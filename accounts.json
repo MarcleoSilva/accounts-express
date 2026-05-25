@@ -1,14 +1,14 @@
 [
- {
-  "email": "marcleo@silva.br",
-  "balance": 10000
- },
- {
-  "email": "marcelosilva@gmail.com",
-  "balance": 1000
- },
- {
-  "email": "das",
-  "balance": 102
- }
+  {
+    "email": "marcleo@silva.br",
+    "balance": 10000
+  },
+  {
+    "email": "marcelosilva@gmail.com",
+    "balance": 1000
+  },
+  {
+    "email": "das",
+    "balance": 101131
+  }
 ]
