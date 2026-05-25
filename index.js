@@ -30,8 +30,29 @@ function operation() {
     .then((answer) => {
         if(answer === "Criar conta") {
             createAccount()
+        } else if(answer === "Consultar saldo") {
+            checkBalance()
         }
     }).catch((err) => console.log(err))
+}
+
+async function checkBalance() {
+    const accounts = loadAccounts()
+
+    if (accounts.length === 0) {
+        console.log(chalk.red('\nNenhuma conta cadastrada.'))
+        return
+    }
+
+    const email = await input({ message: 'Email da conta:' })
+    const account = accounts.find((acc) => acc.email === email)
+
+    if (!account) {
+        console.log(chalk.red(`\nConta com email "${email}" não encontrada.`))
+        return
+    }
+
+    console.log(chalk.green(`\nSaldo da conta ${email}: `) + chalk.bgGreen.black(` R$ ${account.balance.toFixed(2)} `))
 }
 
 async function createAccount() {
